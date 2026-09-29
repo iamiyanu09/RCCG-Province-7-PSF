@@ -1,2 +1,2 @@
 # RCCG-Province-7-PSF
-Website for our church teens group chat
+Official website of the RCCG Province 7 Pastor's Seed Family (PSF) teens, with the group chat link, meeting details and updates.
