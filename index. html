@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Teens Connect</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f5ff;--ink:#0d0f24;--soft:#e6e2fb;--blue:#2f5bff;--sun:#ffd23f;--muted:#4b4e6d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0f24;--ink:#f7f5ff;--soft:#1d2050;--muted:#b5b8d6}}
+:root[data-theme="dark"]{--bg:#0d0f24;--ink:#f7f5ff;--soft:#1d2050;--muted:#b5b8d6}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.05rem/1.55 "DM Sans",system-ui,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:0 1.25rem}
+header{padding:12vh 0 2.5rem}
+h1{font-family:Unbounded,system-ui,sans-serif;font-weight:800;font-size:clamp(2.4rem,11vw,4.6rem);line-height:1;margin:0;letter-spacing:-.02em}
+.tag{font-size:1.2rem;margin:1.2rem 0 1.8rem;max-width:30ch;color:var(--muted)}
+.btn{display:inline-block;font:700 1.05rem "DM Sans",sans-serif;text-decoration:none;border:0;border-radius:14px;padding:.95rem 1.5rem;cursor:pointer;background:var(--blue);color:#fff}
+.btn.alt{background:var(--sun);color:#0d0f24;margin-left:.5rem}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.btn:active{transform:scale(.97)}
+.row{display:flex;flex-wrap:wrap;gap:.6rem}
+.row .btn.alt{margin-left:0}
+section{padding:1.8rem 0}
+h2{font-family:Unbounded,system-ui,sans-serif;font-weight:600;font-size:1.25rem;margin:0 0 1rem}
+.verse{background:var(--sun);color:#0d0f24;border-radius:22px;padding:1.6rem}
+.verse q{display:block;font-size:1.25rem;line-height:1.5;font-weight:500;quotes:none}
+.verse cite{display:block;margin-top:.9rem;font-weight:700;font-style:normal}
+.verse button{margin-top:1.1rem;background:#0d0f24;color:#fff;font:700 .95rem "DM Sans",sans-serif;border:0;border-radius:10px;padding:.6rem 1rem;cursor:pointer}
+.verse button:focus-visible{outline:3px solid #0d0f24;outline-offset:3px}
+dl{margin:0;background:var(--soft);border-radius:18px;padding:1.2rem 1.4rem}
+dt{font-weight:700}
+dd{margin:0 0 .9rem;color:var(--muted)}
+dd:last-child{margin-bottom:0}
+ul{padding-left:1.2rem;margin:0}
+li{margin-bottom:.5rem}
+footer{padding:2rem 0 3rem;color:var(--muted);font-size:.95rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="name">RCCG PROVINCE 7 PSF </h1>
+    <p class="tag" id="tagline">Real friends. Real faith. One group chat.</p>
+    <div class="row">
+      <a class="btn" id="join" href="#" rel="noopener">Join the group chat</a>
+      <button class="btn alt" id="share" type="button">Share with a friend</button>
+    </div>
+  </header>
+
+  <section>
+    <h2>Verse for today</h2>
+    <div class="verse">
+      <q id="vtext"></q>
+      <cite id="vref"></cite>
+      <button id="next" type="button">Show another verse</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>When we meet</h2>
+    <dl>
+      <dt>Day and time</dt><dd id="when"></dd>
+      <dt>Where</dt><dd id="where"></dd>
+      <dt>Who can come</dt><dd id="who"></dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Chat rules</h2>
+    <ul>
+      <li>Be kind. No insults, no gossip.</li>
+      <li>Keep it clean. No bad language or inappropriate pictures.</li>
+      <li>Encourage each other. Post prayer requests and testimonies.</li>
+      <li>Respect the admins and every member.</li>
+    </ul>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+/* EDIT THIS BLOCK ONLY */
+const CONFIG={
+  name:"RCCG PROVINCE 7 PSF",
+  tagline:"Real friends. Real faith. One group chat.",
+  chatLink:"https://chat.whatsapp.com/https://whatsapp.com/channel/0029VbDlhIFJ93wdQyfQ9O46",
+  when:"Uncertain",
+  where:"PSF WhatsApp Group",
+  who:"Every teenager is welcome. Bring a friend.",
+  church:"The Redeemed Christian Church of God"
+};
+/* END EDIT BLOCK */
+
+const verses=[
+["Let no man despise thy youth; but be thou an example of the believers, in word, in conversation, in charity, in spirit, in faith, in purity.","1 Timothy 4:12"],
+["Trust in the LORD with all thine heart; and lean not unto thine own understanding.","Proverbs 3:5"],
+["Have not I commanded thee? Be strong and of a good courage; be not afraid, neither be thou dismayed: for the LORD thy God is with thee whithersoever thou goest.","Joshua 1:9"],
+["Wherewithal shall a young man cleanse his way? by taking heed thereto according to thy word.","Psalm 119:9"],
+["For I know the thoughts that I think toward you, saith the LORD, thoughts of peace, and not of evil, to give you an expected end.","Jeremiah 29:11"]
+];
+const $=id=>document.getElementById(id);
+document.title=CONFIG.name;
+$("name").textContent=CONFIG.name;
+$("tagline").textContent=CONFIG.tagline;
+$("join").href=CONFIG.chatLink;
+$("when").textContent=CONFIG.when;
+$("where").textContent=CONFIG.where;
+$("who").textContent=CONFIG.who;
+$("foot").textContent=CONFIG.church+" RCCG PROVINCE 7 PSF";
+
+let v=Math.floor(Date.now()/864e5)%verses.length;
+function showVerse(){$("vtext").textContent=verses[v][0];$("vref").textContent=verses[v][1]}
+$("next").addEventListener("click",()=>{v=(v+1)%verses.length;showVerse()});
+showVerse();
+
+$("share").addEventListener("click",async()=>{
+  const data={title:CONFIG.name,text:"Join our group chat!",url:location.href};
+  try{
+    if(navigator.share){await navigator.share(data)}
+    else{await navigator.clipboard.writeText(location.href);$("share").textContent="Link copied"}
+  }catch(e){}
+});
+</script>
+</body>
+</html>
+
